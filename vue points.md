@@ -1,4 +1,5 @@
-### lodash
+key a value 1
+index.vue?6ced:35 key b value 2lodash
 
 lodash 的所有函数都不会咋原有的数据上进行操作,而是复制一个新的数据而不改变原有数据
 
@@ -96,3 +97,58 @@ _.pullAll(arr,[1,2])
 _.uniq([2,1,2])
 // => [2,1]
 ```
+
+### 集合类方法
+
+#### 遍历集合
+
+**forEach**
+
+```_
+ _.forEach({ 'a': 1, 'b': 2 }, function(value, key) {
+      console.log('key', key, 'value', value)
+ })
+ // => key a  value 1
+       key b value 2
+```
+
+#### 遍历并返回映射
+
+**map**
+
+```shell
+function square(n) {
+	return n * n
+}
+_.map([4,8], square)
+// => [16, 64]
+
+_.map({ 'a': 4, 'b': 8 }, square)
+// => [16, 64]
+
+_.map([
+        { 'user': 'barney' },
+        { 'user': 'fred' }
+      ], 'user')
+// => ['barney', 'fred']
+```
+
+#### 返回集合长度
+
+**size**
+
+
+
+```shell
+_.size(1,2,3)
+// => 3
+
+_size({'a':1, 'b':2})
+// => 2
+
+_size('pebbles')
+// => 7
+```
+
+
+

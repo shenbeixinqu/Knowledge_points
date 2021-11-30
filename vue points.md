@@ -1,5 +1,35 @@
-key a value 1
-index.vue?6ced:35 key b value 2lodash
+## vue-clipboard2
+
+点击复制按钮,把输入框或指定的文本复制到粘贴板
+
+```shell
+# 1 安装
+	npm install vue-clipboard2
+# 2 main.js 引入
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+# 3 使用
+	<template>
+		<input v-model="location_lead_copy" type="text" style="display: none">
+         <el-button
+            v-clipboard:copy="location_lead_copy"
+            v-clipboard:success="onCopy"
+            v-clipboard:error="onError"
+         >复制地区</el-button>
+	</template>	
+	methods: {
+	  onCopy(e) {
+        this.$message.success('内容已复制到剪切板！')
+      },
+      onError(e) {
+        this.$message.error('抱歉，复制失败！')
+      }
+	}
+```
+
+
+
+## lodash
 
 lodash 的所有函数都不会咋原有的数据上进行操作,而是复制一个新的数据而不改变原有数据
 
@@ -136,8 +166,6 @@ _.map([
 #### 返回集合长度
 
 **size**
-
-
 
 ```shell
 _.size(1,2,3)

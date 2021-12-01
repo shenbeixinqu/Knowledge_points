@@ -125,6 +125,18 @@ opacity: 1.0 完全部透明
 
 ## t
 
+### transform
+
+```shell
+transform:translate
+例:
+	transform:translateX(20px) 向右平移20px
+	transform:translateX(50%，50%)  相对原来的位置,移动各自宽度和高度的50% 
+参考自己的位置进行平移
+```
+
+
+
 ### transition
 
 ```shell

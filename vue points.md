@@ -12,6 +12,315 @@
 	computed带有缓存功能,methods没有
 ```
 
+## vuex
+
+### state
+
+```shell
+state相当于组件中的data，用来存放全局的数据
+使用：
+	模板中 {{$store.state.name}}
+	方法中 this.$store.state.name
+```
+
+**store/index.js**
+
+```html
+export default new Vuex.Store({
+  // state相当于组件中的data,用来存放全局的数据
+  state: {
+    num: 0,
+  },
+  // getters相当于组件中的computed,getter是全局的,computed是组件的
+  getters: {},
+  mutations: {},
+  actions: {},
+  modules: {},
+});
+```
+
+**Home.vue**
+
+```html
+<template>
+  <div class="home">
+    <h2>Home页面的数字:{{ $store.state.num }}</h2>
+  </div>
+</template>
+```
+
+**about.vue**
+
+```html
+<template>
+  <div class="about">
+    <h2>about页面的数字:{{ num }}</h2>
+  </div>
+</template>
+
+<script>
+
+export default {
+  computed: {
+    num() {
+      return this.$store.state.num
+    }
+  }
+};
+</script>
+```
+
+
+
+### getters
+
+ getters相当于组件中的computed,getter是全局的,computed是组件的
+
+**store/index**
+
+```shell
+  // state相当于组件中的data,用来存放全局的数据
+  state: {
+    num: 0,
+  },
+  // getters相当于组件中的computed,getter是全局的,computed是组件的
+  getters: {
+    getNum(state) {
+      return state.num
+    }
+  },
+  mutations: {},
+  actions: {},
+  modules: {},
+```
+
+**Home.vue**
+
+```shell
+<template>
+  <div class="home">
+    <h2>Home页面的数字:{{ $store.getters.getNum }}</h2>
+  </div>
+</template>
+```
+
+### mutations
+
+更改vuex的store中状态的唯一方法是提交mutation
+
+**store/index**
+
+```shell
+// state相当于组件中的data,用来存放全局的数据
+  state: {
+    num: 0,
+  },
+  // getters相当于组件中的computed,getter是全局的,computed是组件的
+  getters: {
+    getNum(state) {
+      return state.num
+    }
+  },
+  // mutations相当于组件中的methods，但是不能使用异步方法，如定时器 axios 
+  mutations: {
+    increase(state, payload=1) {
+      state.num += payload
+    }
+  },
+  actions: {},
+  modules: {},
+```
+
+**btn.vue**
+
+```shell
+<template>
+  <div>
+    <button @click="add">+1</button>
+    <button @click="addFn">+5</button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    add() {
+      this.$store.commit('increase')
+    },
+    addFn() {
+      this.$store.commit('increase', 3)
+    }
+  }
+};
+</script>
+```
+
+### actions
+
+**store/index**
+
+```shell
+ // state相当于组件中的data,用来存放全局的数据
+  state: {
+    num: 0,
+  },
+  // getters相当于组件中的computed,getter是全局的,computed是组件的
+  getters: {
+    getNum(state) {
+      return state.num
+    }
+  },
+  // mutations相当于组件中的methods，但是不能使用异步方法，如定时器 axios 
+  mutations: {
+    increase(state, payload=1) {
+      state.num += payload
+    },
+    decrease(state) {
+      state.num--
+    }
+  },
+  // action 专门处理异步 实际修改状态值的还是mutations
+  actions: {
+    decreaseAsync(context) {
+      setTimeout(() => {
+        context.commit('decrease')
+      }, 1000)
+    }
+  },
+  modules: {},
+```
+
+**btn.vue**
+
+```shell
+<template>
+  <div>
+    <button @click="add">+1</button>
+    <button @click="addFn">+5</button>
+    <button @click="sub">-1</button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    add() {
+      this.$store.commit('increase')
+    },
+    addFn() {
+      this.$store.commit('increase', 3)
+    },
+    sub() {
+      this.$store.dispatch('decreaseAsync')
+    }
+  }
+};
+</script>
+```
+
+### 辅助函数
+
+mapState,mapGetters都是写在computed中
+
+#### mapState
+
+**about.vue**
+
+```shell
+<template>
+  <div class="about">
+    <h2>about页面的数字:{{ num }}</h2>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState(['num']),
+  }
+};
+</script>
+
+```
+
+#### mapGetters
+
+**home.vue**
+
+```shell
+<template>
+  <div class="home">
+    <h2>Home页面的数字:{{ getNum }}</h2>
+  </div>
+</template>
+
+<script>
+import { mapGetters} from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['getNum'])
+  }
+};
+</script>
+```
+
+下面两个展开运算符 写在methods中
+
+#### mapMutations
+
+#### mapActions
+
+```shell
+<template>
+  <div>
+    <button @click="increase()">+1</button>
+    <button @click="increase(5)">+5</button>
+    <button @click="decreaseAsync()">-1</button>
+  </div>
+</template>
+
+<script>
+import { mapMutations, mapActions } from 'vuex'
+export default {
+  methods: {
+    // add() {
+    //   this.$store.commit('increase')
+    // },
+    // addFn() {
+    //   this.$store.commit('increase', 3)
+    // },
+    // sub() {
+    //   this.$store.dispatch('decreaseAsync')
+    // },
+    ...mapMutations(['increase','decrease']),
+    ...mapActions(['decreaseAsync'])
+  }
+};
+</script>
+
+<style></style>
+
+```
+
+#### module
+
+```shell
+store可以认为是一个主模块，下面可以分为很多子模块，写完导入主模块中，以user模块为例
+user模块可以有state getters mutations actions
+users的index.js文件中需要写入 namespaced: true
+在组件中获取值的方法
+	$store.state.users.name
+在方法中获取值的方法
+	methosd:{
+		...mapMutations({
+		   'changeName': 'users/changeName'
+		})
+	}
+```
+
+
+
 ## vue-router
 
 **路由中基础的概念**

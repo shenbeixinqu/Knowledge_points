@@ -319,6 +319,94 @@ users的index.js文件中需要写入 namespaced: true
 	}
 ```
 
+## watch
+
+```shell
+默认情况下,watch只在被监听的属性值发生变化时执行
+```
+
+**例1**
+
+```shell
+export default {
+  data(){
+    dog:""
+  },
+  watch: {
+  	dog(newVal, oldVal) {
+  	  console.log(`Dog Change: ${newVal}`)
+  	}
+  }
+}
+只有dog的值发生变化时,watch中的dog函数才会执行
+```
+
+**例2**
+
+```shell
+在某些情况下, 可能需要在创建组件后立即运行监听程序
+export default {
+  data: () => ({
+    dog: ""
+  }),
+  watch: {
+    dog: {
+      handler(newVal, oldVal) {
+        console.log(`Dog changed: ${newVal}`);
+      },
+      immediate: true
+    }
+  }
+};
+```
+
+**例3**
+
+```shell
+export default {
+  data(){
+  	return {
+        obj: {
+          hello: 'james'
+        }
+  	}
+  },
+  watch: {
+    dog: {
+      handler(newVal, oldVal) {
+        console.log(`Dog changed: ${newVal}`);
+      },
+      immediate: true
+      deep: true
+    }
+  }
+};
+deep即深入观察, 监听器会层层遍历, 给对象的所有属性(及子属性)添加监听器. 这样做无疑会有很大的性能开销, 修改obj中任何一个属性都会触发监听器中的处理函数.
+```
+
+**例4**
+
+```shell
+export default {
+  data: () => ({
+    obj: {
+      hello: 'james'
+    }
+  }),
+  watch: {
+    'obj.hello': {
+      handler(newVal, oldVal) {
+        console.log(`obj changed: ${newVal}`);
+      },
+      immediate: true,
+      deep: false
+    }
+  }
+};
+
+若只想监听obj中的某个属性, 可以使用字符串监听形式.
+```
+
 
 
 ## vue-router

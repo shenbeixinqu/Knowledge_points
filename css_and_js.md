@@ -1,6 +1,153 @@
 # css
 
-## o
+## f
+
+### flex
+
+Flex 布局的主要思想是使父容器能够调节子元素的宽度/高度（和排列顺序），从而能够最好地填充可用空间（**主要是为了适应所有类型的显示设备和屏幕尺寸**）。flex布容器能够放大子元素使之尽可能填充可用空间，也可以收缩子元素使之不溢出。
+
+设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
+
+**基本概念**
+
+采用 Flex 布局的元素，称为 Flex 容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称"项目"。
+
+
+
+##                            ![clipboard.png](css_and_js.assets/477498875-599987f464da3_fix732.png)
+
+**容器属性**
+
+​                      ![img](css_and_js.assets/1287814-20190227105554256-71254015.png)
+
+```shell
+容器使用实例
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father {
+            display: flex;
+            flex-flow: wrap;
+            justify-content: space-between;
+        }
+        .son {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son">1</div>
+        <div class="son">2</div>
+        <div class="son">3</div>
+        <div class="son" style="flex-grow: 3;">4</div>
+        <div class="son">5</div>
+        <div class="son">6</div>
+        <div class="son">7</div>
+        <div class="son">8</div>
+    </div>
+</body>
+```
+
+
+
+2.1 flex-direction
+
+- row（默认值）：主轴为水平方向，起点在左端。
+- row-reverse：主轴为水平方向，起点在右端。
+- column：主轴为垂直方向，起点在上沿。
+- column-reverse：主轴为垂直方向，起点在下沿。
+
+![img](css_and_js.assets/1287814-20190227112100971-1704943994.png)
+
+2.2 flex-wrap
+
+- nowrap（默认）：不换行。
+- wrap：换行，第一行在上方。
+- wrap-reverse：换行，第一行在下方。
+
+2.3 flex-flow
+
+​      flex-direction和flex-wrap的简写 默认row,nowrap
+
+2.4  justify-content
+
+- flex-start（默认值）：左对齐
+- flex-end : 右对齐
+- center : 居中
+- space-between: 两端对齐,项目之间的间隔都相等
+- space-around: 每个项目两侧的间隔相等,所以,项目之间的间隔比项目与边框的间隔大一倍
+
+![img](css_and_js.assets/1287814-20190227115738642-2112201313.gif)
+
+2.5 align-items
+
+- flex-start: 交叉轴的起点对齐
+- flex-end: 交叉轴的终点对齐
+- center: 交叉轴的中点对齐
+- baseline: 项目的第一行文字的基线对齐
+- stretch(默认值): 如果项目未设置高度或设为auto,将占满整个容器的高度
+
+![img](css_and_js.assets/1287814-20190227134053190-1350217843.gif)
+
+2.6 align-content
+
+  定义了多根轴线的对齐方式, 如果项目只有一根轴线,那么该属性将不起作用
+
+- flex-start: 与交叉轴的起点对齐
+- flex-end: 与交叉轴的终点对齐
+- center: 与交叉轴的中点对齐
+- space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+- space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+- stretch（默认值）：轴线占满整个交叉轴。
+
+![img](css_and_js.assets/1287814-20190227134814322-88632295.png)
+
+![img](css_and_js.assets/1287814-20190227134239511-1709887438.gif)
+
+**项目属性**
+
+![img](css_and_js.assets/1287814-20190227135037726-1170549985.png)
+
+3.1 order属性
+
+![img](css_and_js.assets/1287814-20200814180820136-1259976518.png)
+
+3.2 flex-grow
+
+flex-grow 属性定义项目的放大比例,默认为0,即如果存在剩余空间,也不放大
+
+如果所有项目的`flex-grow`属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的`flex-grow`属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
+
+![img](css_and_js.assets/1287814-20200814180912736-504097544.png)
+
+3.3 flex-shrink 
+
+`flex-shrink`属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+
+![img](css_and_js.assets/bg2015071015.jpg)
+
+如果所有项目的`flex-shrink`属性都为1，当空间不足时，都将等比例缩小。如果一个项目的`flex-shrink`属性为0，其他项目都为1，则空间不足时，前者不缩小。
+
+负值对该属性无效。
+
+3.4 align-self
+
+`align-self`属性允许单个项目有与其他项目不一样的对齐方式，可覆盖`align-items`属性。默认值为`auto`，表示继承父元素的`align-items`属性，如果没有父元素，则等同于`stretch`。
+
+```shell
+.item {
+  align-self: auto | flex-start | flex-end | center | baseline | stretch;
+}
+```
+
+![img](css_and_js.assets/1287814-20200814180755315-1277154942.png)
 
 ### opacity
 
@@ -125,6 +272,22 @@ opacity: 1.0 完全部透明
 
 ## t
 
+### text-overflow
+
+```shell
+clip     不显示省略标记(...),只是简单的裁剪
+ellipsis 当文本溢出时显示省略标记(...)
+使用时需要配合 overflow:hidden;white-space:nowrap使用
+
+例:
+text-overflow: ellipsis
+overflow:hidden
+white-space:nowrap
+必要的宽度限制
+```
+
+
+
 ### transform
 
 ```shell
@@ -170,6 +333,17 @@ vh是一种视窗单位,也是相对单位,相对于视窗的高度,视窗被均
 1vh等于视窗高度的1%
 1vw等于视窗宽度的1%
 ```
+
+## w
+
+### white-space
+
+```shell
+white-space: pre-line
+合并空白符序列,保留换行符,多个空格会被浏览器看做一个空格来处理,如果有换行符(回车键),换行符后的内容会从下一行开始,不影响自动换行
+```
+
+
 
 ## z
 

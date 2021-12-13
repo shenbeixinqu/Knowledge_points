@@ -501,6 +501,52 @@ Vue.use(VueClipboard)
 	}
 ```
 
+## table映射
+
+```shell
+<el-table-column
+          label="轮播图"
+          prop="if_banner"
+          align="center"
+        >
+          <template #default="{ row }">
+            <span v-for="(item, index) in bannerOptions" :key="index">
+              {{ row.if_banner == item.value ? item.lable : '' }}
+            </span>
+          </template>
+</el-table-column>
+
+data() {
+  return {
+     bannerOptions: [
+        { value: '1', lable: '通栏' },
+        { value: '2', lable: '半通栏' },
+        { value: '3', lable: '否' }
+      ],
+  }
+}
+```
+
+### 父传子注意
+
+```shell
+当父组件需要传给子组件类似名称的变量时  不要直接在组件传文字
+错误用法:
+    <template>
+      <basic-function :task-title="交流活动" />
+    </template>
+正确用法:
+	<template>
+      <basic-function :task-title="taskTitle" />
+    </template>
+    
+    data() {
+      return  {
+        taskTitle: '交流活动'
+      }
+    }
+```
+
 
 
 ## lodash

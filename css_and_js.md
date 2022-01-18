@@ -629,6 +629,37 @@ html的根元素<html></html>本身就具有层叠上下文,称为根层叠上�
 
 # js
 
+### Json
+
+**JSON.parse**
+
+```shell
+JSON 通常用于与服务端交换数据。
+在接收服务器数据时一般是字符串。
+我们可以使用 JSON.parse() 方法将数据转换为 JavaScript 对象。
+ var obj = JSON.parse('{ "name":"runoob", "alexa":10000, "site":"www.runoob.com" }');
+ console.log('obj', obj, typeof obj)
+ # obj {name: 'runoob', alexa: 10000, site: 'www.runoob.com'} object
+```
+
+
+
+**JSON.stringify**
+
+```shell
+JSON 的常规用途是同 web 服务器进行数据交换。
+在向 web 服务器发送数据时，数据必须是字符串。
+通过 JSON.stringify() 把 JavaScript 对象转换为字符串。
+
+ var obj = { name:"Bill Gates", age:62, city:"Seattle"};
+ var res = JSON.stringify(obj)
+ console.log(obj, 'res', res, typeof res)
+ # {name: 'Bill Gates', age: 62, city: 'Seattle'}
+   'res'
+   '{"name":"Bill Gates","age":62,"city":"Seattle"}'
+   'string'
+```
+
 ### Object.assign
 
 **基本用法**

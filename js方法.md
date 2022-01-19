@@ -37,3 +37,43 @@ function randomString(len) {
 randomString(17)
 ```
 
+### js将对象分成多个数组
+
+```shell
+//数据归类方法
+function classify(arr, key) {
+    let kind = []; //存放属性标识
+    let newArr = []; //返回的数据
+    arr.map((item) => {
+    // 判断key是否存在，不存在则添加
+    if (!kind.includes(item[key])) {
+        kind.push(item[key]); //kind添加新标识
+        newArr.push([]); //添加数组
+    }
+    let index = kind.indexOf(item[key]); //返回带有标识在kind内的下标，判断加入哪个数组
+    newArr[index].push(item); //将对象存入数组
+    });
+    return newArr;
+}
+//测试数据
+let testArr = [
+    {name:"张三",age:"18",gender:"男"},
+    {name:"李四",age:"22",gender:"男"},
+    {name:"王五",age:"17",gender:"女"},
+    {name:"刘丽",age:"18",gender:"女"},
+    {name:"李磊",age:"22",gender:"男"},
+    {name:"杨梅",age:"18",gender:"女"}
+];
+
+//调用方法，对象被判断的属性值相同，则在同个数组内
+let sameType = [];
+//单次调用，输出二维数组
+sameType.push(classify(testArr,"age"));
+console.log(sameType);
+//循环调用，可判断多个属性，输出多维数组
+classify(testArr,"age").map((item) => {
+sameType.push(classify(item,"gender"))
+});  
+// console.log(sameType);
+```
+

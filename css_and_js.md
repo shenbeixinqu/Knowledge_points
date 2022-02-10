@@ -742,3 +742,99 @@ SomeClass.prototype.anotherMethod = function () {
 # 合并多个对象
 ```
 
+### reduce
+
+**语法**
+
+```shell
+arr.reduce(callback, [initialValue])
+```
+
+```shell
+reduce为数组中的每一个元素依次执行回调函数，不包括数组中被删除或从未被赋值的元素
+接受四个参数 初始值（或者上一次回调函数的返回值）, 当前元素值, 当前索引,调用reduce的数组
+```
+
+**eg1**
+
+```js
+var arr = [1, 2, 3, 4];
+var sum = arr.reduce(function(prev, cur, index, arr) {
+    console.log(prev, cur, index);
+    return prev + cur;
+})
+console.log(arr, sum);
+# 打印结果
+1 2 1
+3 3 2
+6 4 3
+[1,2,3,4] 10
+
+上面例子index是从1开始的，第一次的prev的值是数组的第一个值。数组长度是4，但是reduce函数循环3次。
+```
+
+**eg2**
+
+```js
+var  arr = [1, 2, 3, 4];
+var sum = arr.reduce(function(prev, cur, index, arr) {
+    console.log(prev, cur, index);
+    return prev + cur;
+}，0) //注意这里设置了初始值
+console.log(arr, sum);
+# 打印结果
+0 1 0
+1 2 1
+3 3 2
+6 4 3
+[1,2,3,4] 10
+
+这个例子index是从0开始的，第一次的prev的值是我们设置的初始值0，数组长度是4，reduce函数循环4次。
+```
+
+**eg3**
+
+```js
+# 如果数组为空 运用reduce是什么情况
+var  arr = [];
+var sum = arr.reduce(function(prev, cur, index, arr) {
+    console.log(prev, cur, index);
+    return prev + cur;
+})
+//报错，"TypeError: Reduce of empty array with no initial value"
+
+# 但是设置了初始值就不会报错
+var  arr = [];
+var sum = arr.reduce(function(prev, cur, index, arr) {
+    console.log(prev, cur, index);
+    return prev + cur;
+}，0)
+console.log(arr, sum); // [] 0
+```
+
+**简单用法**
+
+```js
+# 数组求和 求乘积
+var  arr = [1, 2, 3, 4];
+var sum = arr.reduce((x,y)=>x+y)
+var mul = arr.reduce((x,y)=>x*y)
+console.log( sum ); //求和，10
+console.log( mul ); //求乘积，24
+```
+
+**高级用法**
+
+```js
+# 计算数组中每个元素出现的次数
+let names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+let nameNum = names.reducr((pre, cur) => {
+    if(cur in pre) {
+        pre[cur]++
+    } else {
+        pre[cur] = 1
+    }
+    return pre
+})
+```
+

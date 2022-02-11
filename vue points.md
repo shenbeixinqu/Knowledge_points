@@ -706,5 +706,18 @@ _size('pebbles')
 // => 7
 ```
 
+## 打包优化
+
+**代码压缩**
+
+```shell
+# 安装
+npm i compression-webpack-plugin@5.0.1
+# vue.config.js
+// gzip压缩
+const CompressionPlugin = require('compression-webpack-plugin')
+
+```
+
 
 

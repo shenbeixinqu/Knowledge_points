@@ -836,5 +836,34 @@ let nameNum = names.reducr((pre, cur) => {
     }
     return pre
 })
+
+# 将二维数组转化为一维
+  let arr = [[1,2],[3,4],[5,6]]
+  let newArr = arr.reduce((pre,cur) => {
+      return pre.concat(cur)
+  }, [])
+  console.log('newarr', newArr)
+
+
+# 对象里的属性求和
+ var result = [
+            {
+                subject: 'math',
+                score: 10
+            },
+            {
+                subject: 'chinese',
+                score: 20
+            },
+            {
+                subject: 'english',
+                score: 30
+            }
+        ]
+
+        var sum = result.reduce((pre, cur) => {
+            return pre + cur.score
+        }, 0)
+        console.log('sum', sum)   // 60
 ```
 

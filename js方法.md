@@ -1,3 +1,88 @@
+## 对象方法
+
+### indexof
+
+```shell
+# 搜索首个数组出现的位置
+var arr = ['不', '上', '班', '行', '不', '行'];
+arr.indexOf('行')	//下标从0开始，返回数字3
+arr.indexOf('行',3)	//指定下标从3开始，算上3，返回数字3
+arr.indexOf('行',4)	//指定下标从4开始，算上4，返回数字5
+arr.indexOf('啊')	//搜索不到时，返回数字-1
+```
+
+### lastIndexOf
+
+```shell
+# 搜索最后出现的数组位置
+arr.lastIndexOf('啊')//下标从0开始，返回数字5
+arr.lastIndexOf('！')//搜索不到时，返回数字-1
+```
+
+### findIndex 
+
+```shell
+# 返回符合传入测试(函数)条件的数组元素索引  返回第一个符合条件的数据
+var fruit = [
+    { id: 1, name: 'apple' },
+    { id: 2, name: 'orange' },
+    { id: 3, name: 'grape' }
+];
+//find返回一整项，findIndex返回下标
+var item = fruit.find(element => element.name == 'orange');
+console.log(item); // { id: 2, name: 'orange' }
+
+//es6版
+var index = fruit.findIndex(element => element.name == 'orange');
+console.log(index); // 1
+```
+
+### includes
+
+```shell
+# 判断一个数组是否包含一个指定的值
+let arr = ['apple', 'banana', 'cheery'];
+ 
+arr.includes('apple'); 
+// true
+ 
+arr.includes('tomato'); 
+// false
+
+arr.includes('apple',1); //从下标1开始
+// false
+```
+
+### some
+
+```shell
+# 用于检测数组中的元素是否满足指定条件
+# 不会改变原数据  不会对空数组进行检测  
+# 如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
+let arr = [18, 19, 20];
+arr.some((age)=>age==18); 
+// true
+ 
+arr.some((age)=>age<18); 
+// false
+```
+
+### every
+
+``` shell
+# 方法用于检测数组所有元素是否都符合指定条件
+# 不会改变原数组  不会对空数组进行检测
+let arr = [18, 18, 18];
+arr.every((age)=>age==18); 
+// true
+
+let arr = [18, 18, 19];
+arr.every((age)=>age<=18); 
+// false
+```
+
+
+
 ### 对象数组属性值拼接成字符串
 
 ```shell
@@ -321,4 +406,71 @@ let nameNum = names.reducr((pre, cur) => {
         }, 0)
         console.log('sum', sum)   // 60
 ```
+
+### 判断字符串是否是整数
+
+```shell
+if(!/^\d+$/.test(str))
+    alert("不是整数");
+}
+```
+
+### JavaScript 根据对象某属性获得其在数组中的index
+
+```shell
+var arr = new Array({"name": "wxx", "age": 2}, {"name": "wyw", "age": 6});
+var index = arr.findIndex(function(item) {
+    return item.name === "wyw";
+});
+console.log(index);
+```
+
+### splice
+
+```shell
+//删除起始下标为1，长度为1的一个值(len设置1，如果为0，则数组不变) 
+var arr = ['a','b','c','d']; 
+arr.splice(1,1); 
+console.log(arr); 
+//['a','c','d']; 
+//替换起始下标为1，长度为1的一个值为‘ttt'，len设置的1 
+var arr = ['a','b','c','d']; 
+arr.splice(1,1,'ttt'); 
+console.log(arr); 
+//['a','ttt','c','d'] 
+```
+
+### js判断元素是否在数组中
+
+```shell
+let arr = [1,2,3];
+arr.includes(1) // true
+arr.includes(5) //false
+```
+
+### 判断对象中是否存在键值
+
+```shell
+let giftCondition = {}
+if (item.p_id in giftCondition) {
+  giftCondition[item.p_id] += item.price
+} else {
+  giftCondition[item.p_id] = item.price
+}
+```
+
+### 获取满足条件的最后一个索引
+
+```shell
+  const result = [
+      {id: 1, value: '1111'},
+      {id: 2, value: '2222'},
+      {id: 3, value: '3333'},
+      {id: 1, value: '4444'}
+  ]
+  const lastIndex = result.map((e) => e.id).lastIndexOf(1);
+  console.log('lastIndex', lastIndex)  // 3
+```
+
+
 
